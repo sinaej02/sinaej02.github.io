@@ -1,0 +1,348 @@
+<html>
+    <head>
+        <!-- Sinae Jung A00960585 
+        MDIA 4295 App Development Strategy2 -->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" href="./lib/onsenui/css/onsenui.css">        
+        <link rel="stylesheet" href="./lib/onsenui/css/onsen-css-components.css">
+        <script src="./lib/onsenui/js/onsenui.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/common.css">
+    </head>
+
+    <body>
+
+        <!-- stack navigation line by stacking the templates and pushing to new page-->
+        <ons-navigator id="myNavigator" page="location-list-temp"></ons-navigator>  
+        
+        <!-- ******************** location list tempalate ******************** -->
+        <template id="location-list-temp">
+            <ons-page id="location-list-page">
+                <ons-toolbar>
+                    <div class="center">Location</div>
+                    <div class="right">
+                        <ons-toolbar-button id="home-button"> 
+                            <ons-icon icon="md-home" style="color: #363837;"></ons-icon>
+                        </ons-toolbar-button>
+                    </div>
+                </ons-toolbar> 
+
+                <!-- OnSen Lazy-Repeat for coffee menu list -->
+                <ons-list id="location-list">
+                </ons-list>
+
+            </ons-page>
+        </template>
+
+
+        <!-- ******************** menu list tempalate ******************** -->
+        <template id="menu-list-temp">
+            <ons-page id="menu-list-page">
+                <ons-toolbar>
+                    <div class="left"><ons-back-button>Back</ons-back-button></div>
+                    <div class="center">Order</div>
+                    <div class="right">
+                        <ons-toolbar-button id="search-button"> 
+                            <ons-icon icon="md-search" style="color: #363837;"></ons-icon>
+                        </ons-toolbar-button>
+                    </div>
+                </ons-toolbar> 
+
+                <div class="selected-location">
+                    <p>Location: <span class="current-location"></sapn><span class="current-address"></sapn></p>
+                </div>
+
+                <!-- OnSen Lazy-Repeat for coffee menu list -->
+                <ons-list id="menu-list">
+                </ons-list>
+
+            </ons-page>
+        </template>
+
+        <!-- ******************** menu item description page tempalate ******************** -->
+        <template id="menu-detail-temp">
+            <ons-page id="menu-detail-page">
+                <ons-toolbar>
+                    <div class="left"><ons-back-button>Back</ons-back-button></div>
+                    <div class="center">Order</div>
+                </ons-toolbar>
+
+                <!-- using ons-card to look all in one container -->
+                <ons-card>                    
+                    <div class="content">
+                        <!-- whenever user select the drink item, bring that from selected drink item from menu list temp-->
+                        <h3 class="title"></h3>
+                        <div><img id="singleImg"></div>
+                        <div id="menuShortDesc"></div>
+                            
+                        <!-- using ons-list for selection -->
+                        <ons-list>
+                            <ons-list-item>
+                                <div class="center">
+                                    Size
+                                </div>
+                                <div class="right">
+                                    <ons-select select-id="size">
+                                        <option value="Small">Small</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Large">Large</option>
+                                    </ons-select>
+                                </div>
+                            </ons-list-item>
+
+                            <ons-list-item>
+                                <div class="center">
+                                    Milk
+                                </div>
+                                <div class="right">
+                                    <ons-select select-id="milk">
+                                        <option value="Nonfat">Nonfat</option>
+                                        <option value="2%">2%</option>
+                                        <option value="Whole">Whole</option>
+                                        <option value="Soy">Soy</option>
+                                        <option value="Almond">Almond</option>
+                                        <option value="Oat">Oat</option>
+                                    </ons-select>
+                                </div>
+                            </ons-list-item>
+
+                            <ons-list-item>
+                                <div class="center">
+                                    Syrup
+                                </div>
+                                <div class="right">
+                                    <ons-select select-id="syrup">
+                                        <option value="Vanila">Vanila</option>
+                                        <option value="Hazelnut">Hazelnut</option>
+                                        <option value="Caramel">Caramel</option>
+                                        <option value="Toffenut">Toffenut</option>
+                                        <option value="Classic">Classic</option>
+                                    </ons-select>
+                                </div>
+                            </ons-list-item>
+
+                        </ons-list>
+
+                        <h5 class="section-break">Nutrition Information</h5>
+
+                        <div class="nutrition-detail">
+                            <p>Calories: <span id="calories"></span></p>
+                            <p>Total Fat: <span id="totalFat"></span>g</p>
+                            <p>Total Carbohydrate: <span id="totalCarb"></span>g</p>
+                            <p id="nutritionDesc"></p>
+                        </div>                        
+                    </div>
+                </ons-card>
+
+                <div class="order-button">
+                    <ons-button modifier="large" id="orderBtn" onclick="orderDrink()">
+                        Order
+                    </ons-button>
+                </div> 
+
+            </ons-page>
+        </template>
+
+
+         <!-- ******************** drink ordering confirm dialog ******************** -->
+        <!-- the data from the selected previous page -->
+        <template id="ordering-confirm-temp">
+            <ons-dialog id="menu-confirm-dialog">
+              <div style="text-align: center; padding: 10px;">
+                <h3>
+                  Thank you! Sinae!
+                </h3>
+                <div class="confirm-message">
+                    <p> Your order <span id="confirm-size"></span> size <span id="confirm-drink"></span> with <span id="confirm-milk"></span> milk and <span id="confirm-syrup"></span> syrup </p>
+                    <p> Your drink has been order! It will be ready in 5 minutes.<span id="confirm-location"></span> </p>
+                </div>
+
+                <p class="thankyou-page-btn">
+                  <ons-button onclick="navToMain()">Close</ons-button>
+                </p>
+              </div>
+            </ons-dialog>
+        </template>
+
+
+
+        <!-- ******************** SCRIPT BLOCKS ******************** -->
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="./js/coffeedata.js"></script>
+            
+        <script>
+
+        // setting up for each page load 
+        document.addEventListener('init', function(event){
+            var page = event.target;
+            
+            if(page.id === 'location-list-page'){
+                //going back to index page when you click the home button
+                page.querySelector('#home-button').onclick = function(){
+                    window.location = './index.html';
+                }
+                loadLocationList(page);
+            }
+
+            if(page.id === 'menu-list-page'){
+                loadMenuList(page);
+            }
+            if(page.id === 'menu-detail-page'){
+                loadMenuDetail(page);
+            }
+
+        });
+
+ // -------------------------------- location list page --------------------------------//
+        // function for the listing the location on the page - OnSen Lazy Repeat
+        function loadLocationList(page){
+            var myLocationList = page.querySelector('#location-list');
+            //get the data from the localSet from coffeedata.js 
+            for(let i = 0; i < locationSet.length; i++){
+                myLocationList.appendChild(
+                    ons.createElement(
+                        '<ons-list-item>' + 
+                        '<div class="location-list-item">' + 
+                        '<div class="location-list-left">' + 
+                        '<img class="location-list-thumb" src="' + locationSet[i].storeImagePath + '">' +
+                        '</div>' +
+                        '<div class="location-list-mid">' +
+                        '<div class="location-list-heading">' + locationSet[i].locationName + '</div>' + 
+                        '<div class="location-list-subhead">' + locationSet[i].address + '</div>' + 
+                        '</div>' +
+                        '<div class="location-list-right">' +
+                        '<ons-button onclick="pushMenuList(' + locationSet[i].id + ')" ' + (!locationSet[i].active ? 'disabled' : '') + ' icon="md-caret-right"></ons-button>' +
+                        '</div></div></ons-list-item>'
+                    )
+                );
+            }       
+
+        }
+
+        //function for the button to push the page with the data to the next page(list menu page)
+        function pushMenuList(lID){
+
+        var currLocation = locationSet[Number.parseInt(lID)];
+        //push the current page and pass the current locaiton 
+        document.querySelector('#myNavigator').pushPage('menu-list-temp', {data: {cLocation: currLocation}});
+
+        }
+
+// -------------------------------- menu list page --------------------------------//
+        // function for the listing the menu on the page - OnSen Lazy Repeat
+        function loadMenuList(page){
+            
+            var myMenuList = page.querySelector('#menu-list');
+            //get the data from the menuSet from coffeedata.js     
+            for(let i = 0; i < menuSet.length; i++){
+                myMenuList.appendChild(
+                    ons.createElement(
+                        '<ons-list-item>' + 
+                        '<div class="menu-list-item">' + 
+                        '<div class="menu-list-left">' + 
+                        '<img class="menu-list-thumb" src="' + menuSet[i].keyImagePath + '">' +
+                        '</div>' +
+                        '<div class="menu-list-mid">' +
+                        '<div class="menu-list-heading">' + menuSet[i].name + '</div>' + 
+                        '</div>' +
+                        '<div class="menu-list-right">' +
+                        '<ons-button onclick="pushMenuDetail(' + menuSet[i].id + ')" ' + (!menuSet[i].active ? 'disabled' : '') + ' icon="md-caret-right"></ons-button>' +
+                        '</div></div></ons-list-item>'
+                    )
+                );
+            }
+            //pass the location data to the next page
+            page.querySelector('.current-address').innerHTML = page.data.cLocation.address;
+            
+        }
+
+
+
+        //function for the button to push the page with the data to the next page(menu detail page)
+        function pushMenuDetail(mID){
+
+        var currMenu = menuSet[Number.parseInt(mID)];
+        // push the current page and pass the current menu ti to the next page(menu item description page)
+        document.querySelector('#myNavigator').pushPage('menu-detail-temp', {data: {cMenu: currMenu}});
+
+        }
+
+
+// -------------------------------- menu item description page --------------------------------//
+        //get the selected coffee data from the coffeedata.js file and display in HTML using id/class name 
+        function loadMenuDetail(currPage){
+                currPage.querySelector('.title').innerHTML = currPage.data.cMenu.name;
+
+                currPage.querySelector('#singleImg').src = currPage.data.cMenu.keyImagePath;
+
+                currPage.querySelector('#menuShortDesc').innerHTML = currPage.data.cMenu.shortDesc;
+
+                currPage.querySelector('#calories').innerHTML = currPage.data.cMenu.calories;
+
+                currPage.querySelector('#totalFat').innerHTML = currPage.data.cMenu.totalFat;
+
+                currPage.querySelector('#totalCarb').innerHTML = currPage.data.cMenu.totalCarb;
+
+                currPage.querySelector('#nutritionDesc').innerHTML = currPage.data.cMenu.nutritionDesc;
+
+           
+        };
+
+// -------------------------------- drink ordering confirm dialog--------------------------------//
+        function orderDrink(){
+            var page = document.getElementById('menu-detail-page');
+            var page1 = document.getElementById('menu-list-page');
+
+            //setting the objects, get the data from the previous page
+            var orderingData = {
+
+                drinkName: page.querySelector('.title').innerHTML,
+                drinkSize: page.querySelector('#size').value,
+                drinkMilk: page.querySelector('#milk').value,
+                drinkSyrup: page.querySelector('#syrup').value,
+            }
+
+            //setting variable to dispay on the dialog
+            var orderingDialog = document.getElementById('menu-confirm-dialog');
+
+            //creating and appending it to the dom
+            ons.createElement('ordering-confirm-temp', {append:true}).then(function(orderingDialog){
+
+                //set the diaply data on the HTML
+                orderingDialog.querySelector('#confirm-drink').innerHTML = 
+                '<span class="dialog-em">' + orderingData.drinkName + '</span>';
+
+                orderingDialog.querySelector('#confirm-size').innerHTML = 
+                '<span class="dialog-em">' + orderingData.drinkSize + '</span>';
+
+                orderingDialog.querySelector('#confirm-milk').innerHTML = 
+                '<span class="dialog-em">' + orderingData.drinkMilk + '</span>';
+
+                orderingDialog.querySelector('#confirm-syrup').innerHTML = 
+                '<span class="dialog-em">' + orderingData.drinkSyrup + '</span>';
+
+
+                orderingDialog.show();
+            });
+
+        }
+
+        //function for going back to the location list page and disappear the dialog at the same time
+        function navToMain(){
+
+                document.querySelector('#myNavigator').popPage({times: 2});
+                document.getElementById('menu-confirm-dialog').hide();
+            }
+
+
+
+        </script>
+    </body>
+</html>
+
+
+

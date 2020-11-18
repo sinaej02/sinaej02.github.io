@@ -1,0 +1,14 @@
+{
+  "name": "com.assignment.sinae",
+  "version": "1.0.0",
+  "description": "Assignment 1 for MDIA 4295 App Development ",
+  "repository": "",
+  "bugs": "",
+  "main": "index.js",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova:template"
+  ],
+  "author": "Sinae Jung",
+  "license": "Apache-2.0"
+}

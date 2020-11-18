@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,200&display=swap');
+/********** INDEX PAGE CLASSES ********/
+div{
+    font-family: 'Nunito', sans-serif;
+}
+.toolbar__title{
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+}
+.card-img{    
+    padding: 0;    
+    text-align: center;
+}
+
+.card-img img{
+    max-width: 100%;    
+}
+
+.content-item{
+    margin:20px;
+    align-items: right;
+}
+.start-order-btn{
+    text-align: right;
+}
+.btn-link{
+    background-color: black;
+    font-size: 0.8em;
+}
+
+.page__content h3, .page__content h5{
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+}
+.button{
+    font-family: 'Nunito', sans-serif;
+}
+.short-blurb p{
+    font-size: 0.8em;
+}
+
+/************** back button***********/
+
+.back-button__icon{
+    fill: #363837;
+}
+.back-button{
+    color: #363837;
+}
+.back-button__label{
+    font-size: 1em;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;;
+}
+
+
+/************** location item list ***********/
+
+.location-list-item{
+    display: grid;    
+    grid-template-columns: 3fr 3fr 1fr;
+    grid-template-areas: "thumb copy btn";
+}
+
+.location-list-left{
+    grid-area: thumb;    
+}
+
+.location-list-mid{
+    grid-area: copy;
+    padding-left: 20px;
+    align-self: center;
+    justify-self: center;
+}
+
+.location-list-right{
+    grid-area: btn;
+    align-self: center;
+    justify-self: center;
+}
+
+img.location-list-thumb{
+    max-width: 100%;
+    border-radius: 15%;    
+}
+
+.location-list-heading{
+    font-size: 1.2em;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.location-list-subhead{
+    font-size: 1em;
+}
+
+#location-list .button{
+    background-color: rgba(0,0, 0, 0);
+    color: black;
+}
+
+/************** menu item list ***********/
+
+.selected-location{
+    padding: 10px;
+}
+
+.menu-list-item{
+    display: grid;    
+    grid-template-columns: 3fr 3fr 1fr;
+    grid-template-areas: "thumb copy btn";
+}
+
+.menu-list-left{
+    grid-area: thumb;    
+}
+
+.menu-list-mid{
+    grid-area: copy;
+    padding-left: 20px;
+    align-self: center;
+    /* justify-self: center; */
+}
+
+.menu-list-right{
+    grid-area: btn;
+    align-self: center;
+    justify-self: center;
+}
+
+img.menu-list-thumb{
+    max-width: 100%;
+    border-radius: 15%;    
+}
+
+.menu-list-heading{
+    font-size: 1.2em;
+    font-weight: bold;
+    text-transform: capitalize;
+    line-height: 1.4em;;
+}
+
+.menu-list-subhead{
+    font-size: 1em;
+}
+
+#menu-list .button{
+    background-color: rgba(0,0, 0, 0);
+    color: black;
+}
+
+/************** menu item description page tempalate ***********/
+
+
+#singleImg{
+    height: calc(350 * (100vw / 500));
+    margin: 5px 0px;
+}
+
+.page__content h3{
+    font-size: 2em;
+    margin: 0.3em 0;
+    text-align: center;
+}
+
+#menuShortDesc{
+    margin: 1em 0;
+    font-size: 0.8em;
+}
+
+#menu-detail-page .list-item__center{
+    font-size: 0.8em;
+}
+
+.nutrition-detail p{
+    font-size: 0.8em;
+}
+
+
+
+.select-input{
+    font-size: 0.8em;
+}
+
+
+.order-button{
+    text-align: center;
+    margin: 10px;   
+}
+
+.order-button .button{
+    background-color: black;
+}
+
+.thankyou-page-btn .button{
+    background-color: black;
+    font-size: 1em;
+    padding: 0 20px;
+
+}
+
+.dialog{
+    font-family: 'Nunito', sans-serif;
+    
+}
+
+.dialog-em{
+    color: #404040; 
+    font-weight: bold;
+}
+
+
